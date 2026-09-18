@@ -3,6 +3,7 @@
 
   assets/neofetch.svg       the neofetch card (edit INFO below)
   assets/contributions.svg  the contribution map for the last year
+  assets/career.svg         the git-graph career timeline (edit CAREER below)
 
 Run:  python3 scripts/generate_cards.py
 Needs the `gh` CLI, authenticated (locally) or with GH_TOKEN set (in Actions).
@@ -10,6 +11,7 @@ Standard library only.
 """
 import json
 import subprocess
+import textwrap
 from datetime import date
 from html import escape
 from pathlib import Path
@@ -33,10 +35,34 @@ INFO = [
     ("Locale", "mnijhum.com · blogs.mnijhum.com"),
 ]
 
+# Newest first. rail: "main" for jobs, "side" for the branch that runs alongside them.
+# ref: ("head", name) | ("branch", name) | ("tag", name) | ("root", name)
+CAREER = [
+    dict(rail="main", ref=("head", "oloodi"), title="Full Stack Developer",
+         place="Oloodi · Montréal, QC", dates="Sept 2026 – present", desc=""),
+    dict(rail="side", ref=("branch", "concordia"), title="MEng, Information Systems Security",
+         place="Concordia University · Montréal, QC", dates="May 2024 – Apr 2026", desc=""),
+    dict(rail="main", ref=("tag", "medistack"), title="Software Engineer",
+         place="MediStack · Remote", dates="Jan 2025 – Feb 2026",
+         desc="Healthcare SaaS. Shipped Next.js interfaces and Node.js APIs, a LangChain + LangGraph RAG "
+              "assistant, a prescription builder covering 28k+ medicines, and real-time scheduling."),
+    dict(rail="main", ref=("tag", "intercloud"), title="Software Engineer",
+         place="Intercloud Limited · Dhaka, Bangladesh", dates="May 2022 – Apr 2024",
+         desc="Brilliant Cloud, Bangladesh's first IaaS portal. Built IAM, the Kubernetes-as-a-Service "
+              "frontend, monitoring for 15+ microservices, and a ticketing platform (1000+ requests a day)."),
+    dict(rail="main", ref=("tag", "together"), title="Junior Software Engineer",
+         place="Together Initiatives · Dhaka, Bangladesh", dates="Nov 2021 – Feb 2022",
+         desc="Spring Boot backend for a point-of-sale system, plus RPA for telecom services."),
+    dict(rail="main", ref=("root", "init"), title="BSc, Computer Science & Engineering",
+         place="BRAC University · Dhaka, Bangladesh", dates="Jan 2017 – Jun 2021", desc=""),
+]
+
 # ---- theme ---------------------------------------------------------------
 BG, BAR, BORDER = "#0d1117", "#161b22", "#30363d"
 TEXT, DIM, ACCENT, PROMPT, LOGO_INK = "#c9d1d9", "#8b949e", "#5eead4", "#7ee787", "#f0f6fc"
 LOGO_FROM, LOGO_TO = (94, 234, 212), (96, 165, 250)  # teal -> blue, top to bottom
+SIDE, SOFT = "#bc8cff", "#9da7b3"  # side-branch rail, description text
+GIT_YELLOW, GIT_CYAN, GIT_GREEN = "#e3b341", "#56d4dd", "#56d364"
 LEVELS = {  # contribution map cells, empty -> busiest
     "NONE": "#161b22",
     "FIRST_QUARTILE": "#134e4a",
@@ -326,9 +352,83 @@ def build_contributions(calendar):
     return "\n".join(out)
 
 
+def decoration(kind, name):
+    """The (HEAD -> branch) / (tag: x) suffix, coloured the way git colours it."""
+    y = f'fill="{GIT_YELLOW}"'
+    if kind == "head":
+        inner = f'<tspan class="b" fill="{GIT_CYAN}">HEAD -&gt; </tspan><tspan class="b" fill="{GIT_GREEN}">{name}</tspan>'
+    elif kind == "branch":
+        inner = f'<tspan class="b" fill="{SIDE}">{name}</tspan>'
+    elif kind == "tag":
+        inner = f'<tspan class="b" {y}>tag: {name}</tspan>'
+    else:
+        inner = f'<tspan fill="{DIM}">{name}</tspan>'
+    return f'<tspan {y}> (</tspan>{inner}<tspan {y}>)</tspan>'
+
+
+def build_career():
+    mx, sx, tx = PAD + 7, PAD + 31, PAD + 58
+    desc_style = f'style="font-size:14.5px;fill:{SOFT}"'
+
+    # lay out first so the rails know where the nodes are
+    y, rows = TOP, []
+    for e in CAREER:
+        wrapped = textwrap.wrap(e["desc"], 92)
+        rows.append((e, y, wrapped))
+        y += (2 + len(wrapped)) * LH + 16
+    end_y = y + 10
+    H = end_y + 34
+
+    summary = "; ".join(f'{e["title"]}, {e["place"]}, {e["dates"]}' for e in CAREER)
+    out, start = window(H, f"{USER}@{HOST} — career", summary, "git log --graph --career")
+
+    node_y = lambda ty: ty - 5.5
+    mains = [node_y(ty) for e, ty, _ in rows if e["rail"] == "main"]
+    rails = [f'<path d="M{mx} {mains[0]}V{mains[-1]}" stroke="{ACCENT}" stroke-width="2" fill="none"/>']
+    for i, (e, ty, _) in enumerate(rows):
+        if e["rail"] != "side":
+            continue
+        # merges into the nearest main node above, forks from the second main node below
+        top = max(node_y(t) for r, t, _ in rows[:i] if r["rail"] == "main")
+        below = [node_y(t) for r, t, _ in rows[i + 1:] if r["rail"] == "main"]
+        bottom = below[1] if len(below) > 1 else below[0]
+        rails.append(
+            f'<path d="M{mx} {bottom}C{mx} {bottom - 20} {sx} {bottom - 14} {sx} {bottom - 34}'
+            f'V{top + 34}C{sx} {top + 14} {mx} {top + 20} {mx} {top}" '
+            f'stroke="{SIDE}" stroke-width="2" fill="none"/>'
+        )
+    out.append(f'<g class="ln" style="animation-delay:{start:.2f}s">{"".join(rails)}</g>')
+
+    for i, (e, ty, wrapped) in enumerate(rows):
+        side = e["rail"] == "side"
+        cx, colour = (sx, SIDE) if side else (mx, ACCENT)
+        hollow = side or e["ref"][0] == "root"
+        parts = [
+            f'<circle cx="{cx}" cy="{node_y(ty)}" r="6" fill="{BG if hollow else colour}" '
+            f'stroke="{colour if hollow else BG}" stroke-width="2"/>',
+            f'<text x="{tx}" y="{ty}"><tspan class="b" fill="{LOGO_INK}">{escape(e["title"])}</tspan>'
+            f'{decoration(*e["ref"])}</text>',
+            f'<text x="{W - PAD}" y="{ty}" text-anchor="end" style="font-size:14.5px;fill:{DIM}">{escape(e["dates"])}</text>',
+            f'<text x="{tx}" y="{ty + LH}" style="fill:{colour}">'
+            f'{escape(e["place"])}</text>',
+        ]
+        for j, line in enumerate(wrapped):
+            parts.append(f'<text x="{tx}" y="{ty + (2 + j) * LH}" {desc_style}>{escape(line)}</text>')
+        out.append(f'<g class="ln" style="animation-delay:{start + 0.15 + i * 0.12:.2f}s">{"".join(parts)}</g>')
+
+    out.append(closing_prompt(end_y, start + 0.15 + len(rows) * 0.12 + 0.1))
+    out.append("</svg>")
+    return "\n".join(out)
+
+
 if __name__ == "__main__":
     repos, calendar = fetch()
     ASSETS.mkdir(exist_ok=True)
-    for name, svg in (("neofetch.svg", build_neofetch(repos)), ("contributions.svg", build_contributions(calendar))):
+    cards = {
+        "neofetch.svg": build_neofetch(repos),
+        "contributions.svg": build_contributions(calendar),
+        "career.svg": build_career(),
+    }
+    for name, svg in cards.items():
         (ASSETS / name).write_text(svg + "\n", encoding="utf-8")
         print(f"wrote assets/{name}")

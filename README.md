@@ -19,16 +19,19 @@ I'm **Mushfikunnabi Nijhum**, a full stack developer at Oloodi in Montréal. I b
   <img src="assets/contributions.svg" width="100%" alt="Terminal showing my GitHub contribution map for the last year.">
 </a>
 
-### `❯ git log --career`
+<a href="https://www.linkedin.com/in/mnijhum/">
+  <img src="assets/career.svg" width="100%" alt="Terminal showing my career as a git graph: Full Stack Developer at Oloodi (Sept 2026 – present); MEng in Information Systems Security at Concordia University; Software Engineer at MediStack (Jan 2025 – Feb 2026); Software Engineer at Intercloud Limited (May 2022 – Apr 2024); Junior Software Engineer at Together Initiatives (Nov 2021 – Feb 2022); BSc in Computer Science and Engineering at BRAC University.">
+</a>
 
-- **Oloodi** · Full Stack Developer · Sept 2026 – now
-- **[MediStack](https://medistack.net)** · Software Engineer · 2025 – 2026<br>
-  Healthcare SaaS. Shipped Next.js interfaces and Node.js APIs, a LangChain + LangGraph RAG assistant, a prescription builder covering 28k+ medicines, and real-time scheduling.
-- **Intercloud Limited** · Software Engineer · 2022 – 2024<br>
-  Brilliant Cloud, Bangladesh's first IaaS portal. Built IAM, the Kubernetes-as-a-Service frontend, monitoring for 15+ microservices, and a ticketing platform handling 1000+ requests a day.
-- **Together Initiatives** · Junior Software Engineer · 2021 – 2022<br>
-  Spring Boot backend for a point-of-sale system, plus RPA for telecom services.
+<p align="center">
+  <sub>
+    <a href="https://oloodi.com">oloodi.com</a> ·
+    <a href="https://medistack.net">medistack.net</a> ·
+    <a href="https://intercloud.com.bd">intercloud.com.bd</a> ·
+    <a href="https://www.i2gether.com/">i2gether.com</a>
+  </sub>
+</p>
 
 ### `❯ exit`
 
-<sub>Both terminal cards are hand-rolled SVGs, rebuilt daily from live GitHub data by <code>scripts/generate_cards.py</code>.</sub>
+<sub>The terminal cards are hand-rolled SVGs, rebuilt daily from live GitHub data by <code>scripts/generate_cards.py</code>.</sub>
