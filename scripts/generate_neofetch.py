@@ -11,9 +11,9 @@ OUT = Path(__file__).resolve().parent.parent / "assets" / "neofetch.svg"
 
 USER, HOST = "mnijhum", "github"
 INFO = [
-    ("OS", "Software Engineer x86_64"),
+    ("OS", "Full Stack Developer x86_64"),
     ("Host", "Oloodi · Montréal, QC, Canada"),
-    ("Kernel", "MEng Information Systems Security @ Concordia"),
+    ("Kernel", "MEng Information Systems Security, Concordia '26"),
     ("Uptime", "shipping production code since 2021"),
     ("Packages", "37 (github)"),
     ("Shell", "TypeScript, Python, JavaScript, Java"),

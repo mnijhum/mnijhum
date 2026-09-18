@@ -1,5 +1,5 @@
 <a href="https://mnijhum.com">
-  <img src="assets/neofetch.svg" width="100%" alt="Terminal running neofetch for mnijhum@github — Software Engineer at Oloodi in Montréal; MEng Information Systems Security at Concordia; shipping production code since 2021; works with TypeScript, Python, Next.js, React, FastAPI, Flask, Docker, Kubernetes, RAG and LangChain, PostgreSQL and MongoDB.">
+  <img src="assets/neofetch.svg" width="100%" alt="Terminal running neofetch for mnijhum@github — Full Stack Developer at Oloodi in Montréal; MEng in Information Systems Security from Concordia; shipping production code since 2021; works with TypeScript, Python, Next.js, React, FastAPI, Flask, Docker, Kubernetes, RAG and LangChain, PostgreSQL and MongoDB.">
 </a>
 
 <p align="center">
@@ -13,7 +13,7 @@
 
 ### `❯ whoami`
 
-I'm **Mushfikunnabi Nijhum**, a full-stack software engineer in Montréal. I build web products end to end: React and Next.js on the front, Python and Node services behind them, and the Docker and CI/CD plumbing that gets them to production. Lately most of my side projects involve LLMs and retrieval, and my graduate work at Concordia is in information systems security.
+I'm **Mushfikunnabi Nijhum**, a full stack developer at Oloodi in Montréal. I build web products end to end: React and Next.js on the front, Python and Node services behind them, and the Docker and CI/CD plumbing that gets them to production. Lately most of my side projects involve LLMs and retrieval, and I hold an MEng in Information Systems Security from Concordia.
 
 ### `❯ ls ~/projects`
 
@@ -26,6 +26,7 @@ I'm **Mushfikunnabi Nijhum**, a full-stack software engineer in Montréal. I bui
 
 ### `❯ git log --career`
 
+- **Oloodi** · Full Stack Developer · Sept 2026 – now
 - **[MediStack](https://medistack.net)** · Software Engineer · 2025 – 2026<br>
   Healthcare SaaS. Shipped Next.js interfaces and Node.js APIs, a LangChain + LangGraph RAG assistant, a prescription builder covering 28k+ medicines, and real-time scheduling.
 - **Intercloud Limited** · Software Engineer · 2022 – 2024<br>
