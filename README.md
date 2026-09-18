@@ -15,14 +15,9 @@
 
 I'm **Mushfikunnabi Nijhum**, a full stack developer at Oloodi in Montréal. I build web products end to end: React and Next.js on the front, Python and Node services behind them, and the Docker and CI/CD plumbing that gets them to production. Lately most of my side projects involve LLMs and retrieval, and I hold an MEng in Information Systems Security from Concordia.
 
-### `❯ ls ~/projects`
-
-| Project | What it does | Built with |
-| :-- | :-- | :-- |
-| **[rolefit-ai](https://github.com/mnijhum/rolefit-ai)** | AI resume tailoring SaaS. Upload a resume, paste a job description, get a truthful, ATS-friendly draft with an A4 editor and PDF export. | Next.js · TypeScript · FastAPI · PostgreSQL |
-| **[rag-knowledge-assistant](https://github.com/mnijhum/rag-knowledge-assistant)** | Internal assistant that answers employee questions from company documents using retrieval-augmented generation. | Next.js · FastAPI · Qdrant · OpenAI · Docker |
-| **[privacy-policy-analyzer](https://github.com/mnijhum/privacy-policy-analyze-chrome-extension)** | Chrome extension that finds a site's privacy policy and summarises it with an LLM ([backend](https://github.com/mnijhum/privacy-policy-analyze-using-llm-backend) · [demo](https://youtu.be/LjPMqBcdvzU)). | JavaScript · Python |
-| **[react-tailwind-tanstack-shadcn-boilerplate](https://github.com/mnijhum/react-tailwind-tanstack-shadcn-boilerplate)** | The starter I reach for on new React apps. | React · TypeScript · TanStack · shadcn/ui |
+<a href="https://github.com/mnijhum?tab=repositories">
+  <img src="assets/contributions.svg" width="100%" alt="Terminal showing my GitHub contribution map for the last year.">
+</a>
 
 ### `❯ git log --career`
 
@@ -36,4 +31,4 @@ I'm **Mushfikunnabi Nijhum**, a full stack developer at Oloodi in Montréal. I b
 
 ### `❯ exit`
 
-<sub>The card above is a hand-rolled SVG. Regenerate it with <code>python3 scripts/generate_neofetch.py</code>.</sub>
+<sub>Both terminal cards are hand-rolled SVGs, rebuilt daily from live GitHub data by <code>scripts/generate_cards.py</code>.</sub>
